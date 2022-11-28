@@ -10,44 +10,62 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  late bool _showMenu;
-  late int _currentIndex;
+  late bool _showMenu = false;
+  late int _currentIndex = 0;
+  double _yPosition = 0;
 
   @override
   void initState() {
     super.initState();
-    _showMenu = false;
-    _currentIndex = 0;
   }
 
   @override
   Widget build(BuildContext context) {
-    double _screenHeight = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
+    if (_yPosition == 0) {
+      _yPosition = screenHeight * .24;
+    }
     return Scaffold(
       backgroundColor: Colors.purple[800],
       body: Stack(
         alignment: Alignment.topCenter,
-        children: <Widget> [
-          MyAppBar(
-            _showMenu,
-            () {
-              setState(() {
-                _showMenu = !_showMenu;
-              });
-            }
-          ),
+        children: <Widget>[
+          MyAppBar(_showMenu, () {
+            setState(() {
+              _showMenu = !_showMenu;
+              _yPosition = _showMenu? screenHeight * .75 : screenHeight * .24;
+            });
+          }),
           PageViewApp(
-            top: _screenHeight * .22,
+            top: _yPosition,
             onChanged: (index) {
               setState(() {
                 _currentIndex = index;
               });
             },
+            onPanUpdate: (details) {
+              setState(() {
+                double positionBottomLimit = screenHeight * .75;
+                double positionTopLimit = screenHeight * .24;
+
+                if (_yPosition != positionBottomLimit && details.delta.dy > 0) {
+                  _yPosition = positionBottomLimit;
+                  _showMenu = true;
+                }
+
+                if (_yPosition != positionTopLimit && details.delta.dy < 0) {
+                  _yPosition = positionTopLimit;
+                  _showMenu = false;
+
+                }
+              });
+            },
+            showMenu: _showMenu,
           ),
-          Positioned(
-              top: _screenHeight * .70,
-              child: MyDotsApp(currentIndex: _currentIndex,)
+          MyDotsApp(
+            top: screenHeight * .70,
+            currentIndex: _currentIndex,
+            showMenu: _showMenu,
           )
         ],
       ),
