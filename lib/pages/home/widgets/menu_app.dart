@@ -14,11 +14,13 @@ class MenuApp extends StatelessWidget {
         left: 0,
         right: 0,
         child: AnimatedOpacity(
-            duration: Duration(milliseconds: 200),
+            duration: Duration(milliseconds: 100),
             opacity: showMenu ? 1 : 0,
             child: Container(
               //color: Colors.red,
               height: MediaQuery.of(context).size.height * 0.65,
+              child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               child: Column(children: [
                 Image.network(
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/QR_Code_Example.svg/2048px-QR_Code_Example.svg.png',
@@ -122,7 +124,7 @@ class MenuApp extends StatelessWidget {
                     ),
                   ),
                 )
-              ]),
+              ]),),
             )));
   }
 }
