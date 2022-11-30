@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nubank_old_interface/pages/home/widgets/card_app.dart';
+import 'package:nubank_old_interface/pages/home/widgets/menu_app.dart';
 import 'package:nubank_old_interface/pages/home/widgets/my_app_bar.dart';
 import 'package:nubank_old_interface/pages/home/widgets/my_dots_app.dart';
 import 'package:nubank_old_interface/pages/home/widgets/page_view_app.dart';
@@ -36,6 +37,10 @@ class _HomePageState extends State<HomePage> {
               _yPosition = _showMenu? screenHeight * .75 : screenHeight * .24;
             });
           }),
+          MenuApp(
+            top: screenHeight * .18,
+            showMenu: _showMenu,
+          ),
           PageViewApp(
             top: _yPosition,
             onChanged: (index) {
