@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:nubank_old_interface/pages/home/widgets/card_app.dart';
+import 'package:nubank_old_interface/pages/home/widgets/first_card.dart';
 
 class PageViewApp extends StatelessWidget {
   final double top;
@@ -13,7 +14,7 @@ class PageViewApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
-      duration: Duration(milliseconds: 150),
+      duration: Duration(milliseconds: 250),
       curve: Curves.easeOut,
       top: top,
       height: MediaQuery.of(context).size.height * .45,
@@ -25,9 +26,15 @@ class PageViewApp extends StatelessWidget {
           onPageChanged: onChanged,
           physics: showMenu ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
           children: <Widget>[
-            CardApp(),
-            CardApp(),
-            CardApp(),
+            CardApp(
+              child: FirstCard(),
+            ),
+            CardApp(
+              child: Container(),
+            ),
+            CardApp(
+              child: Container(),
+            ),
           ],
         ),
       ),

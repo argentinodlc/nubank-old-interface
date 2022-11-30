@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.filipe.nubank_old_interface">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="nubank_old_interface"
         android:name="${applicationName}"
